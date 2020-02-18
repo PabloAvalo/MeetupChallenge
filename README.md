@@ -1,9 +1,12 @@
 # MeetupChallenge
-Meetup challenge santander
+Meetup challenge santander  
+Web Api desarrollado en .NET CORE 3.1 
+
+
 
 # Getting Started
-1.	Installation process
-  1- En App Settings configurar el connection string  
+1.	Installation process  
+  1- En App Settings configurar el connection string   
   2- Correr la migracion de la db del proyecto Meetup.Api  
 2. Swagger  
   1- Al iniciar la aplicacion se muestra la interfaz de swagger.  
