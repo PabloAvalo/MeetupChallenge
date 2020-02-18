@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Meetup.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetEventos">
+            <summary>
+            Lista todos los eventos creados
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetEventosByOrganizadorId(System.Int32)">
+            <summary>
+            Lista los eventos que fueron creados por el usuario organizador del evento
+            </summary>
+            <param name="organizadorId"> Id  del organizador</param>
+            <returns></returns>            
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetEventosByUser(System.Int32)">
+            <summary>
+            Lista los eventos en que se encuentra inscripto el usuario
+            </summary>
+            <param name="userId"> id del usuario </param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetEvento(System.Int32)">
+            <summary>
+            Obtiene una Meeting a traves  de su id
+            </summary>
+            <param name="id"> id del evento</param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.PostEvento(Meetup.Dto.Models.EventoNuevoDto)">
+            <summary>
+            Crea un evento nuevo
+            </summary>
+            <param name="evento"> Tiene todos los datos pertenecientes al evento nuevo</param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetCantidadDeBirras(System.Int32)">
+            <summary>
+            Se obtiene los packs de birra que se necesitan para el evento 
+            </summary>
+            <param name="eventoId"> id del evento buscado </param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.Delete(System.Int32)">
+            <summary>
+            Elimina un evento
+            </summary>
+            <param name="eventoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.Put(System.Int32,Meetup.Dto.Models.EventoPutDto)">
+            <summary>
+            Modifica los datos del evento
+            </summary>
+            <param name="id"></param>
+            <param name="eventoDto"> datos completos del evento modificado </param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.EventosController.GetClima(System.Int32)">
+            <summary>
+            Obtiene el clima para unaa meeting 
+            </summary>
+            <param name="eventoId"> Id del evento buscado</param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.InscripcionController.Post(Meetup.Dto.Models.InscripcionNuevaDto)">
+            <summary>
+            Genera una nueva inscripcion de un usuario a una Meeting
+            
+            </summary>
+            <param name="inscripcion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.InscripcionController.CheckIn(System.Int32)">
+            <summary>
+            Confirma asistencia de usuario a una meeting
+            </summary>
+            <param name="inscripcionId"> id de la inscripcion</param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.TopicosController.GetTopicos">
+            <summary>
+            Obtiene los posibles topicos de las meetings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.UsuarioController.SingUp(Meetup.Dto.Models.UsuarioNuevoDto)">
+            <summary>
+            Registra un nuevo usuario
+            </summary>
+            <param name="usuarioNuevo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.UsuarioController.Login(Meetup.Dto.Models.UsuarioLoginDto)">
+            <summary>
+            Obtiene el usuario logueado
+            </summary>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.UsuarioController.Get">
+            <summary>
+            Obtiene todos los usuario que usan meetup
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Meetup.Api.Controllers.UsuarioController.AddTopicoDePreferencia(Meetup.Dto.Models.ConfiguracionNuevaDto)">
+            <summary>
+            Permite agregar topicos que le interesan al usuario
+            *Podria agregar otras configuraciones*
+            </summary>
+            <param name="configuracion"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

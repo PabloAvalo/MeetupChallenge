@@ -1,0 +1,24 @@
+﻿@page
+@model Meetup.UI.MeetupHomeModel
+@{
+    ViewData["Title"] = "MeetupHome";
+}
+
+<h1>MeetupHome</h1>
+
+
+<div class=" col-12 align-content-center">
+
+    @foreach (var item in Model.ProximosEventos)
+    {
+        <div class="md-6">
+
+            <div class="h3">@item.Nombre</div>
+            <div class="h5">@item.Descripcion</div>
+            <p>Fecha del evento : @item.Fecha</p>
+            <p>El topico de esta Meetup es @item.Topico</p>
+
+        </div>
+    }
+
+</div>
