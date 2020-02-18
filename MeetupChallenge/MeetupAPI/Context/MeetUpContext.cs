@@ -24,6 +24,8 @@ namespace Meetup.Api.Context
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Configuracion> Configuracions { get; set; }
 
+        public DbSet<ClimaEvento> Climas { get; set; }
+
 
 
         //invites

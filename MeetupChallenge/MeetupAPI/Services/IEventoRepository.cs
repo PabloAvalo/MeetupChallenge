@@ -20,6 +20,7 @@ namespace Meetup.Api.Services
 
         void Remove(int id);
         bool Exists(int id);
-        object GetEventosByUserId(int userId);
+        IEnumerable<Evento> GetEventosByUserId(int userId);
+        ClimaEvento GetClima(int eventoId);
     }
 }

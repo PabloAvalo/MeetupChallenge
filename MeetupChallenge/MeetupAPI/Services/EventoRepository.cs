@@ -36,6 +36,15 @@ namespace Meetup.Api.Services
             return _context.Eventos.Any(e => e.Id == id);
         }
 
+        public ClimaEvento GetClima(int eventoId)
+        {
+            return _context.Climas.Where(c => c.EventoId == eventoId).FirstOrDefault();
+        }
+
+        public void AddClima(ClimaEvento clima) {
+            _context.Climas.Add(clima);
+        }
+
         public Evento GetEventoById(int id)
         {
             return GetFullEvento().Where(e => e.Id == id).FirstOrDefault();
@@ -58,7 +67,7 @@ namespace Meetup.Api.Services
             return _context.Eventos.Include(e => e.Topico).Where(e => e.OrganizadorId == organizadorId).ToList();
         }
 
-        public object GetEventosByUserId(int userId)
+        public IEnumerable<Evento> GetEventosByUserId(int userId)
         {
             List<int> eventoIds = _context.Inscripciones.Where(i => i.UsuarioId == userId)
                                                         .Select(e => e.EventoId).ToList();
