@@ -13,6 +13,7 @@ Meetup challenge santander
 3. Biblioteca BussinessLogic  
    1- Es una biblioteca que maneja el llamado a las apis.   
    2- Falta agregar el proyecto de test  
+4. Frontend WIP 
   
 2.	Software dependencies
 
