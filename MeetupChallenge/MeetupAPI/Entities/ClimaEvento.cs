@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,9 @@ namespace Meetup.Api.Entities
 {
     public class ClimaEvento
     {
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [ForeignKey("EventoId")]
         public int EventoId { get; set; }
         public Evento Evento { get; set; }

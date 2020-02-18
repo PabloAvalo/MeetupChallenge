@@ -82,13 +82,10 @@ namespace Meetup.Api.ClimaHelper
         
         }
 
-        public static async Task<double> GetTemperaturaDelEvento(string ubicacion, DateTime dt)
+        public static double GetTemperaturaDelEvento(ClimaDto clima, DateTime dt)
         {
 
-            var clima = await GetClimaPorFecha(ubicacion,dt);
-
-            if (clima == null) return double.MinValue;
-
+            
             if (dt.Hour >= 6 && dt.Hour <= 12)
                 return double.Parse(clima.Mañana);
             if (dt.Hour > 12 && dt.Hour <= 19)

@@ -109,6 +109,19 @@ namespace Meetup.Api.Services
 
         }
 
+        public void AddClima(ClimaEvento clima, int eventoId)
+        {
+            clima.FechaActualizacion = DateTime.Today;
+            clima.EventoId = eventoId;
+            _context.Climas.Add(clima);
+        }
 
+        public void UpdateClima(ClimaEvento nuevoClima, int id, int eventoId)
+        {
+            nuevoClima.EventoId = eventoId;
+            nuevoClima.FechaActualizacion = DateTime.Today;
+            nuevoClima.Id = id;
+            _context.Entry(nuevoClima).State = EntityState.Modified;
+        }
     }
 }

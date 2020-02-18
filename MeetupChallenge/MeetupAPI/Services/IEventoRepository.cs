@@ -22,5 +22,7 @@ namespace Meetup.Api.Services
         bool Exists(int id);
         IEnumerable<Evento> GetEventosByUserId(int userId);
         ClimaEvento GetClima(int eventoId);
+        void AddClima(ClimaEvento clima, int eventoId);
+        void UpdateClima(ClimaEvento nuevoClima, int eventoId, int eventoId1);
     }
 }

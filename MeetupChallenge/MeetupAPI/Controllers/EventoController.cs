@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Meetup.Api.ClimaHelper;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Meetup.Api.Entities;
 
 namespace Meetup.Api.Controllers
 {
@@ -86,8 +87,8 @@ namespace Meetup.Api.Controllers
         /// </summary>
         /// <param name="id"> id del evento</param>
         /// <returns></returns>
-        [HttpGet("{id}", Name ="GetEvento")]
-        
+        [HttpGet("{id}", Name = "GetEvento")]
+
         public IActionResult GetEvento(int id = 0)
         {
             if (id == 0)
@@ -116,14 +117,14 @@ namespace Meetup.Api.Controllers
         [HttpPost]
         public IActionResult PostEvento(EventoNuevoDto evento)
         {
-            
+
             var entity = _mapper.Map<Entities.Evento>(evento);
 
             entity.FechaActualizacion = DateTime.Now;
 
             bool ok = _eventoRepo.AddEvento(entity);
 
-            if(!ok)
+            if (!ok)
             {
                 return BadRequest("No se pudo agregar el evento. usuario o topico no existentes");
 
@@ -145,12 +146,13 @@ namespace Meetup.Api.Controllers
         /// <returns></returns>
 
         [HttpGet("{eventoId}/cantidadDeBirras")]
-        public IActionResult GetCantidadDeBirras(int eventoId)
+        public async Task<IActionResult> GetCantidadDeBirrasAsync(int eventoId)
         {
 
             var evento = _eventoRepo.GetEventoById(eventoId);
 
-            if (evento == null) {
+            if (evento == null)
+            {
 
                 return NotFound();
 
@@ -161,16 +163,21 @@ namespace Meetup.Api.Controllers
                 return Ok("No hay inscriptos en la meetup");
             }
 
-            double? temp = ClimaHelper.ClimaHelper.GetTemperaturaDelEvento(evento.Ciudad, evento.Fecha)?.Result;
+            var clima = await  GetClimaEventoAsync(eventoId);
 
-            if (temp == double.MinValue) {
+           
+
+            if (clima == null)
+            {
 
                 return NotFound("No se encontraron datos del clima para el evento");
 
             }
 
+            double temp = ClimaHelper.ClimaHelper.GetTemperaturaDelEvento(clima, evento.Fecha);
 
-            int packsBirra = ProvicionesHelper.CantidadDeBirras(evento.Inscriptos.Count, temp.Value);
+
+            int packsBirra = ProvicionesHelper.CantidadDeBirras(evento.Inscriptos.Count, temp);
 
 
             return Ok(new
@@ -254,12 +261,12 @@ namespace Meetup.Api.Controllers
                 return NotFound();
             }
 
-            var evento = _eventoRepo.GetEventoById(eventoId);
-            ClimaDto dto = await ClimaHelper.ClimaHelper.GetClimaPorFecha(evento.Ciudad, evento.Fecha);
+            ClimaDto dto = await GetClimaEventoAsync(eventoId);
 
-            if (dto == null)
-            {
-                return NotFound($"No se encontro el clima para la fecha {evento.Fecha}");
+            if (dto == null) {
+
+                return NotFound("No se pudo encontrar el clima para el evento");
+            
             }
 
             return Ok(dto);
@@ -268,15 +275,65 @@ namespace Meetup.Api.Controllers
 
         [HttpGet]
         [Route("Proximos")]
-        public IActionResult GetProximosEventos() {
+        public IActionResult GetProximosEventos()
+        {
 
-            var eventos =  _eventoRepo.GetProximosEventos();
-           
+            var eventos = _eventoRepo.GetProximosEventos();
+
 
             return Ok(_mapper.Map<IEnumerable<EventoDto>>(eventos));
 
         }
 
+        private async Task<ClimaDto> GetClimaEventoAsync(int eventoId)
+        {
 
+
+            //obtengo el clima de bd
+            var clima = _eventoRepo.GetClima(eventoId);
+
+            ClimaDto dto = new ClimaDto();
+            //si esta actualizado devuelvo el clima
+            if (clima?.FechaActualizacion.Date == DateTime.Today.Date)
+            {
+                return _mapper.Map<ClimaDto>(clima);
+            }
+            //sino comunico con api
+            var evento = _eventoRepo.GetEventoById(eventoId);
+
+            dto = await ClimaHelper.ClimaHelper.GetClimaPorFecha(evento.Ciudad, evento.Fecha);
+
+            if (dto != null)
+            {
+
+                UpdateClimaCache(eventoId, clima, dto);
+
+                _eventoRepo.Save();
+            }
+
+            return dto;
+
+        }
+
+        private void UpdateClimaCache(int eventoId, ClimaEvento clima, ClimaDto dto)
+        {
+            Entities.ClimaEvento nuevoClima = _mapper.Map<Entities.ClimaEvento>(dto);
+
+            //si no tenia clima en bd lo agrego
+            if (clima == null)
+            {
+
+                _eventoRepo.AddClima(nuevoClima, eventoId);
+
+            }
+            //si existia lo modifico
+            else
+            {
+                _eventoRepo.UpdateClima(nuevoClima, clima.Id, eventoId);
+
+            }
+            _eventoRepo.Save();
+
+        }
     }
 }

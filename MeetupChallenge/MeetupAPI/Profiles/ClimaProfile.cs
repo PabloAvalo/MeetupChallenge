@@ -13,6 +13,7 @@ namespace Meetup.Api.Profiles
         public ClimaProfile()
         {
             CreateMap<ClimaEvento, ClimaDto>();
+            CreateMap<ClimaDto, ClimaEvento>();
 
         }
     }

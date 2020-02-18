@@ -4,14 +4,16 @@ using Meetup.Api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meetup.Api.Migrations
 {
     [DbContext(typeof(MeetUpContext))]
-    partial class MeetUpContextModelSnapshot : ModelSnapshot
+    [Migration("20200218174815_clima-cache")]
+    partial class climacache
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
