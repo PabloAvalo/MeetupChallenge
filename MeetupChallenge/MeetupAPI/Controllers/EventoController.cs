@@ -249,19 +249,20 @@ namespace Meetup.Api.Controllers
         /// <summary>
         /// Obtiene el clima para unaa meeting 
         /// </summary>
-        /// <param name="eventoId"> Id del evento buscado</param>
+        /// <param name="id"> Id del evento buscado</param>
         /// <returns></returns>
 
-        [HttpGet("eventoid/Clima")]
-        public async Task<IActionResult> GetClima(int eventoId)
+        [HttpGet("{id}/clima")]
+
+        public async Task<IActionResult> GetClima(int id)
         {
 
-            if (!_eventoRepo.Exists(eventoId))
+            if (!_eventoRepo.Exists(id))
             {
                 return NotFound();
             }
 
-            ClimaDto dto = await GetClimaEventoAsync(eventoId);
+            ClimaDto dto = await GetClimaEventoAsync(id);
 
             if (dto == null) {
 

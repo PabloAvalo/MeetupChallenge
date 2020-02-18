@@ -3,6 +3,7 @@ using IdentityModel.Client;
 using Meetup.BussinesLogic.APIManager;
 using Meetup.Dto.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -113,9 +114,10 @@ namespace BussinesLogic.Controllers
 
                 }
 
-                var birras = response.Content.ReadAsStringAsync();
+    
+                JObject joResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-                cantidadBirraas = 1;
+                cantidadBirraas = (int)joResponse["Packs"];
 
 
             }
@@ -185,8 +187,6 @@ namespace BussinesLogic.Controllers
             var apiClient = APIHelper.GetApiClient();
 
             apiClient.SetBearerToken(tokenResponse.AccessToken);
-
-            Console.WriteLine(tokenResponse.AccessToken);
 
             var response = await apiClient.GetAsync(baseUrl + $"/{eventoId}");
             EventoDto evento = new EventoDto();

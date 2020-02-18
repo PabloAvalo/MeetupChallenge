@@ -49,7 +49,7 @@ namespace Meetup.BussinessLogic.Test
         [Theory]
         [InlineData(1, -1)]
         [InlineData(-1, 1)]
-        [InlineData(int.MaxValue,int.MaxValue)]
+        [InlineData(int.MaxValue, int.MaxValue)]
 
 
         public async Task MeetupController_ShouldntCreateMeetup(int topicoId, int organizadorId)
@@ -80,30 +80,73 @@ namespace Meetup.BussinessLogic.Test
 
 
             Assert.Null(evento);
-        
+
+
 
         }
 
-        public async Task MeetupController_ShouldUpdateMeetup(int id) { 
-        
-                
-        
+        public async Task MeetupController_ShouldUpdateMeetup(int id)
+        {
+
+
+
         }
 
 
-        public async Task MeetupController_ShouldGetWeatherForMeetup() { 
-        
+        [Fact]
+        public async Task MeetupController_ShouldGetWeatherForMeetup()
+        {
+
+            var evento = await controller.ObtenerMeetup(5);
+
+
+            var clima = await controller.ObtenerClimarDeEvento(5);
+
+            if (evento.Fecha >= DateTime.Today)
+            {
+                Assert.NotNull(clima);
+            }
+
+            else
+            {
+
+                Assert.Null(clima);
+            }
+
         }
 
-        public async Task MeetupController_ShouldGetAmountOfBeers() { 
-        
+        [Fact]
+        public async Task MeetupController_ShouldGetAmountOfBeers()
+        {
+            var evento = await controller.ObtenerMeetup(4);
+
+            var clima = await controller.ObtenerCantidadDeBirras(4);
+
+            if (evento.Fecha > DateTime.Now)
+            {
+                Assert.NotNull(clima);
+            }
+
+            else
+            {
+
+                Assert.Null(clima);
+            }
         }
 
-        public async Task MeetupController_ShouldGetNextMeetups() { 
+        public async Task MeetupController_ShouldGetNextMeetups()
+        {
         }
 
-        public async Task MeetupController_ShouldGetUserMeetups() { 
-        
+        public async Task MeetupController_ShouldGetUserMeetups()
+        {
+
+        }
+
+        public async Task MeetupController_ShouldGetOrganizadorMeetups()
+        {
+
+
         }
 
 
@@ -116,4 +159,3 @@ namespace Meetup.BussinessLogic.Test
 
     }
 }
-    
