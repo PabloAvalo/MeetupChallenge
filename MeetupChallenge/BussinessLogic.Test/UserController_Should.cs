@@ -17,6 +17,9 @@ namespace Meetup.BussinessLogic.Test
         }
 
         public async Task User_ShouldSignUp() { 
+
+            var user = controller.SignUp()
+
         }
 
         public async Task User_ShouldLogin() { 

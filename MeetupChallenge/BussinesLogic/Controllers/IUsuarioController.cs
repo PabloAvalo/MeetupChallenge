@@ -5,10 +5,10 @@ namespace Meetup.BussinesLogic.Controllers
 {
     public interface IUsuarioController
     {
-        Task AddTopicoFavorito(int usuarioId, int topicoId);
+        Task AddTopicoFavorito(ConfiguracionNuevaDto configuracion);
         Task HacerCheckIn(int inscripcionId);
-        Task<UsuarioDto> Login(string usuario, string contraseña);
-        Task RegistrarInscripcion(int usuarioId, int eventoId);
-        Task SignUp(string correo, string contraseña, bool isAdmin, string nombre);
+        Task<UsuarioDto> Login(UsuarioLoginDto usu);
+        Task RegistrarInscripcion(InscripcionNuevaDto inscripcion);
+        Task SignUp(UsuarioNuevoDto usu);
     }
 }

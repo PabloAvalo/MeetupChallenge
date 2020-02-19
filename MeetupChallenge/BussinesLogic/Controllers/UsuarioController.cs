@@ -39,7 +39,7 @@ namespace Meetup.BussinesLogic.Controllers
         }
 
 
-        public async Task AddTopicoFavorito(int usuarioId, int topicoId)
+        public async Task AddTopicoFavorito(ConfiguracionNuevaDto configuracion)
         {
 
             TokenResponse tokenResponse = await IdentityController.GetToken();
@@ -48,12 +48,7 @@ namespace Meetup.BussinesLogic.Controllers
 
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            ConfiguracionNuevaDto configuracion = new ConfiguracionNuevaDto
-            {
-                Key = "Topic",
-                UsuarioId = usuarioId,
-                Value = topicoId.ToString()
-            };
+
 
             using (var response = await apiClient.PostAsJsonAsync("/Usuarios/preferencias", configuracion))
             {
@@ -67,7 +62,7 @@ namespace Meetup.BussinesLogic.Controllers
 
         }
 
-        public async Task RegistrarInscripcion(int usuarioId, int eventoId)
+        public async Task RegistrarInscripcion(InscripcionNuevaDto dto)
         {
             TokenResponse tokenResponse = await IdentityController.GetToken();
 
@@ -75,7 +70,7 @@ namespace Meetup.BussinesLogic.Controllers
 
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            InscripcionNuevaDto dto = new InscripcionNuevaDto() { UsuarioId = usuarioId, EventoId = eventoId };
+         
             using (HttpResponseMessage response = await apiClient.PostAsJsonAsync("/inscripcion", dto))
             {
                 if (!response.IsSuccessStatusCode)
@@ -86,9 +81,9 @@ namespace Meetup.BussinesLogic.Controllers
             }
         }
 
-        public async Task<UsuarioDto> Login(string correo, string contraseña)
+        public async Task<UsuarioDto> Login(UsuarioLoginDto dto)
         {
-            UsuarioLoginDto dto = new UsuarioLoginDto() { Correo = correo, Contraseña = contraseña };
+          
             UsuarioDto loggedInUsuario = new UsuarioDto();
 
             TokenResponse tokenResponse = await IdentityController.GetToken();
@@ -115,16 +110,9 @@ namespace Meetup.BussinesLogic.Controllers
             return loggedInUsuario;
         }
 
-        public async Task SignUp(string correo, string contraseña, bool isAdmin, string nombre)
+        public async Task SignUp(UsuarioNuevoDto usuario)
         {
 
-            UsuarioNuevoDto dto = new UsuarioNuevoDto()
-            {
-                Correo = correo,
-                Contraseña = contraseña,
-                IsAdmin = isAdmin,
-                Nombre = nombre
-            };
 
             TokenResponse tokenResponse = await IdentityController.GetToken();
 

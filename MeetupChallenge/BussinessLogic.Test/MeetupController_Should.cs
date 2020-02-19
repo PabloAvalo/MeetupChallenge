@@ -120,17 +120,17 @@ namespace Meetup.BussinessLogic.Test
         {
             var evento = await controller.ObtenerMeetup(4);
 
-            var clima = await controller.ObtenerCantidadDeBirras(4);
+            var cant = await controller.ObtenerCantidadDeBirras(4);
 
             if (evento.Fecha > DateTime.Now)
             {
-                Assert.NotNull(clima);
+                Assert.True(cant >= 0);
             }
 
             else
             {
 
-                Assert.Null(clima);
+                Assert.True(cant < 0);
             }
         }
 

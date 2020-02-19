@@ -15,6 +15,7 @@ namespace Meetup.BussinesLogic.APIManager
         {
             // discover endpoints from metadata
 
+            //como se si no esta vencido??
             if (Token != null && !Token.IsError)
 
                 return Token;
