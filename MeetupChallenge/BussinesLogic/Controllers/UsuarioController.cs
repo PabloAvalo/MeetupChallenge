@@ -121,7 +121,7 @@ namespace Meetup.BussinesLogic.Controllers
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
 
-            using (var response = await apiClient.PostAsJsonAsync($"/Usuarios", dto))
+            using (var response = await apiClient.PostAsJsonAsync($"/Usuarios", usuario))
             {
                 if (!response.IsSuccessStatusCode)
                 {
