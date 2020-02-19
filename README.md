@@ -2,12 +2,12 @@
 Meetup challenge santander  
 Web Api desarrollado en .NET CORE 3.1 
 
+Sitio en Azure 
+https://meetupapi.azurewebsites.net/index.html
 
 
 # Getting Started
-1.	Installation process  
-  1- En App Settings configurar el connection string   
-  2- Correr la migracion de la db del proyecto Meetup.Api  
+*Agregar ip en azure para poder usar el swagger
 2. Swagger  
   1- Al iniciar la aplicacion se muestra la interfaz de swagger.  
   2- Para poder usar los metodos en swagger primero hay que auntenticarse.  
